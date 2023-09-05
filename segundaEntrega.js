@@ -185,7 +185,9 @@ do {
                             notasDeAlumnosMenor();
                             break;
 
-                        default:
+                        default: if (opcionNota !== 0) {
+                            alert("Ingrseaste una opcón no válida.")
+                        }
                             break;
                     }
                 } while (opcionNota !== 0);
