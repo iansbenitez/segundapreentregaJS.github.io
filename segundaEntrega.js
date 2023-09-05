@@ -91,9 +91,9 @@ const agregarAlumno = (nombre, apellido, curso, nota) => {
 };
 
 
-// Función para mostrar las notas de los alumnos 
+// Función para mostrar las notas de los alumnos de mayor a menor
 
-const notasDeAlumnos = () => {
+const notasDeAlumnosMayor = () => {
     const mayorNota = listaDeAlumnos.sort((a, b) => b.nota - a.nota);
 
     arrayNotasMayor = mayorNota.map((alumno, index) => `${index + 1}) ${alumno.nombre} ${alumno.apellido}. Nota final: ${alumno.nota}.`)
@@ -101,6 +101,18 @@ const notasDeAlumnos = () => {
     const mensajeFinalNotas = arrayNotasMayor.join(`\n`);
     
     alert(`Estas son las notas de nuestros alumnos ordenados de mayor a menor.\n\n${mensajeFinalNotas}`)
+}
+
+// Función para mostrar las notas de los alumnos de menor a mayor
+
+const notasDeAlumnosMenor = () => {
+    const mayorNota = listaDeAlumnos.sort((a, b) =>  a.nota - b.nota);
+
+    arrayNotasMayor = mayorNota.map((alumno, index) => `${index + 1}) ${alumno.nombre} ${alumno.apellido}. Nota final: ${alumno.nota}.`)
+
+    const mensajeFinalNotas = arrayNotasMayor.join(`\n`);
+    
+    alert(`Estas son las notas de nuestros alumnos ordenados de menor a mayor.\n\n${mensajeFinalNotas}`)
 }
 
 
@@ -128,45 +140,64 @@ class Alumno{
 saludoConNombre();
 
 let opcion;
+let opcionNota;
 
-do{
-    opcion = parseInt(prompt("Por favor, ingresar una opción.\n\n\n1) Ver listado de alumnos.\n2) Ver alumnos aprobados.\n3) Ver notas.\n4) Agregar un alumno.\n\n0) Presione para salir."))
-    switch (opcion) {  
-        case 0 : 
-        alert("Gracias por asistir, nos vemos pronto.")
-        break;
+do {
+    opcion = parseInt(prompt("Por favor, ingrese una opción.\n\n\n1) Ver listado de alumnos.\n2) Ver alumnos aprobados.\n3) Ver notas.\n4) Agregar un alumno.\n\n0) Presione para salir."));
 
-        case 1 :     
+    switch (opcion) {
+        case 0:
+            alert("Gracias por asistir, nos vemos pronto.");
+            break;
+
+        case 1:
             // Función que recorra los alumnos y mostrar
-            if(listaDeAlumnos.length === 0){
-                alert("No hay alumnos aún, por favor agregar.")
-            }else{
-                recorridaListaAlumnos()};
+            if (listaDeAlumnos.length === 0) {
+                alert("No hay alumnos aún, por favor agregar.");
+            } else {
+                recorridaListaAlumnos();
+            }
             break;
 
-        case 2 : 
+        case 2:
             // Función que recorra y muestre los alumnos aprobados
-            if(listaDeAlumnos.length === 0){
-                alert("No hay alumnos aún, por favor agregar.")
-            }else{
-                alumnosAprobados()};
+            if (listaDeAlumnos.length === 0) {
+                alert("No hay alumnos aún, por favor agregar.");
+            } else {
+                alumnosAprobados();
+            }
             break;
 
-        case 3 :
-            // Función que recorra y muestre
-            if(listaDeAlumnos.length === 0){
-                alert("No hay alumnos aún, por favor agregar.")
-            }else{
-                notasDeAlumnos()};
+        case 3:
+            // Función que recorra y muestre las valoraciones
+            if (listaDeAlumnos.length === 0) {
+                alert("No hay alumnos aún, por favor agregar.");
+            } else {
+                do {
+                    opcionNota = parseInt(prompt("Cómo quiere mostrar las valoraciones?\n\n1) De mayor a menor.\n2) De menor a mayor.\n\n0) Volver al menú principal."));
+
+                    switch (opcionNota) {
+                        case 1:
+                            notasDeAlumnosMayor();
+                            break;
+
+                        case 2:
+                            notasDeAlumnosMenor();
+                            break;
+
+                        default:
+                            break;
+                    }
+                } while (opcionNota !== 0);
+            }
             break;
 
-        case 4 : 
-        // Función objeto clase constructora que pida los datos y pushee al array de alumnos
+        case 4:
+            // Función objeto clase constructora que pida los datos y pushee al array de alumnos
             agregarAlumno();
-        break;
+            break;
 
-        default :
-        alert("Ingresó una opción inexistente")
-    
+        default:
+            alert("Ingresó una opción inexistente");
     }
-}while(opcion !== 0);
+} while (opcion !== 0);
